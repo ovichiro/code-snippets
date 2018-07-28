@@ -19,3 +19,4 @@ Replace all line breaks with `<br>`
 
     (?:\r\n|\r|\n)
 
+
