@@ -113,7 +113,7 @@ You will get a merge conflict upon pull from remote if someone else pushed chang
 
 ### Squash commits
 
-Make 3 local commits as example then rebase (default is `--mixed`)
+Make 3 local commits as example then reset (default is `--mixed`)
 
     git reset HEAD~3
 
