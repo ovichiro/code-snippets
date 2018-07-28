@@ -7,7 +7,7 @@ SELECT owner, constraint_name, constraint_type, table_name, r_owner, r_constrain
 SELECT owner, constraint_name, constraint_type, table_name, r_owner, r_constraint_name
     FROM all_constraints
     WHERE owner='DBTEST'AND constraint_name='SYS_C00121212';
-      
+
 SELECT * FROM all_cons_columns
   WHERE owner='DBTEST'AND constraint_name = 'SYS_C00121212';
 
