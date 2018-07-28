@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.ovichiro.snippets</groupId>
+  <artifactId>jetty-example</artifactId>
+  <packaging>war</packaging>
+  <version>1.1-SNAPSHOT</version>
+
+  <name>Jetty example</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.1.3.v20140225</version>
+        <configuration>
+          <httpConnector>
+            <port>18080</port>
+          </httpConnector>
+          <!--<scanIntervalSeconds>5</scanIntervalSeconds>-->
+          <!-- Reload app on `enter`. Alternative is to set to `automatic` with scan interval above. -->
+          <reload>manual</reload>
+          <webApp>
+            <contextPath>/${project.build.finalName}</contextPath>
+          </webApp>
+          <!--<scanTargets>-->
+            <!--<scanTarget>src/main/resources</scanTarget>-->
+          <!--</scanTargets>-->
+        </configuration>
+      </plugin>
+    </plugins>
+    <finalName>jetty-example</finalName>
+  </build>
+</project>

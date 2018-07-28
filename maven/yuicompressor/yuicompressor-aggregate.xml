@@ -1,0 +1,63 @@
+<plugin>
+    <groupId>net.alchim31.maven</groupId>
+    <artifactId>yuicompressor-maven-plugin</artifactId>
+    <version>1.3.2</version>
+    <executions>
+        <!-- Aggregate dependency scripts. Exclude from compression. -->
+        <execution>
+            <id>dependencies-aggregate</id>
+            <goals>
+                <goal>compress</goal>
+            </goals>
+            <configuration>
+                <aggregations>
+                    <aggregation>
+                        <!-- remove files after aggregation (default: false) -->
+                        <removeIncluded>true</removeIncluded>
+                        <!-- insert new line after each concatenation (default: false) -->
+                        <insertNewLine>true</insertNewLine>
+                        <!-- inputDir: base directory for non absolute includes, default to parent dir of output -->
+                        <inputDir>${project.basedir}/src/main/webapp/frontend</inputDir>
+                        <output>${project.build.directory}/${project.build.finalName}/frontend/scripts/dependencies.js</output>
+                        <includes>
+                            <include>**/frontend/deps/jquery.min.js</include>
+                            <include>**/frontend/deps/bootstrap/bootstrap.min.js</include>
+                            <include>**/frontend/deps/angular.min.js</include>
+                        </includes>
+                    </aggregation>
+                </aggregations>
+                <!-- Exclude from compression. -->
+                <excludes>
+                    <exclude>**/frontend/deps/*.js</exclude>
+                    <exclude>**/frontend/deps/bootstrap/bootstrap.min.js</exclude>
+                </excludes>
+            </configuration>
+        </execution>
+        <!-- Compress and aggregate project scripts. -->
+        <execution>
+            <id>scripts-compress</id>
+            <goals>
+                <goal>compress</goal>
+            </goals>
+            <configuration>
+                <aggregation>
+                    <!-- remove files after aggregation (default: false) -->
+                    <removeIncluded>true</removeIncluded>
+                    <inputDir>${project.basedir}/src/main/webapp/frontend</inputDir>
+                    <output>${project.build.directory}/${project.build.finalName}/frontend/scripts/app-scripts.js</output>
+                    <includes>
+                        <include>**/frontend/src/js/config.js</include>
+                        <include>**/frontend/src/js/app.js</include>
+                        <include>**/frontend/src/js/script1.js</include>
+                        <include>**/frontend/src/js/script2.js</include>
+                    </includes>
+                </aggregation>
+            </configuration>
+        </execution>
+    </executions>
+    <configuration>
+        <nosuffix>true</nosuffix>
+        <jswarn>false</jswarn>
+        <preProcessAggregates>true</preProcessAggregates>
+    </configuration>
+</plugin>

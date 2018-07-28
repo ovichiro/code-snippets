@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.ovichiro.snippets</groupId>
+  <artifactId>licenses-example</artifactId>
+  <packaging>jar</packaging>
+  <version>1.1-SNAPSHOT</version>
+
+  <name>Licenses example</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!--Spring-web and Spring-core are dependencies for webmvc-->
+    <!--Declare `core` in order to exclude commons-logging-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- Use at the terminal: mvn license:add-third-party -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>1.10</version>
+        <configuration>
+          <useMissingFile>true</useMissingFile>
+          <useRepositoryMissingFiles>false</useRepositoryMissingFiles>
+          <excludedScopes>test</excludedScopes>
+          <deployMissingFile>false</deployMissingFile>
+          <!-- Merge different license names for the same license. -->
+          <licenseMerges>
+            <licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0</licenseMerge>
+            <licenseMerge>The Apache Software License, Version 2.0|Apache Public License 2.0</licenseMerge>
+            <licenseMerge>The Apache Software License, Version 2.0|ASF 2.0</licenseMerge>
+            <licenseMerge>The Apache Software License, Version 2.0|Apache 2</licenseMerge>
+            <licenseMerge>The Apache Software License, Version 2.0|Apache 2.0</licenseMerge>
+            <licenseMerge>Revised BSD License|Revised BSD</licenseMerge>
+          </licenseMerges>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <finalName>snippets-example</finalName>
+  </build>
+</project>

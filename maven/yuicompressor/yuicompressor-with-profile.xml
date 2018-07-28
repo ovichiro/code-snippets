@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.ovichiro.snippets</groupId>
+  <artifactId>yui-comp-with-profile</artifactId>
+  <packaging>war</packaging>
+  <version>1.1-SNAPSHOT</version>
+
+  <name>YUI compressor example</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <finalName>yui-comp-with-profile</finalName>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>env</name>
+          <value>dev</value>
+        </property>
+      </activation>
+    </profile>
+    <profile>
+      <id>staging</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>staging</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>net.alchim31.maven</groupId>
+            <artifactId>yuicompressor-maven-plugin</artifactId>
+            <version>1.4.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>compress</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <encoding>UTF-8</encoding>
+              <nosuffix>true</nosuffix>
+              <excludes>
+                <exclude>**/ext_js/*.*</exclude>
+                <exclude>**/*min.js</exclude>
+                <exclude>**/*.css</exclude>
+                <exclude>**/styles/*</exclude>
+                <exclude>somelib.js</exclude>
+                <exclude>**/somefolder/**</exclude>
+              </excludes>
+              <jswarn>false</jswarn>
+            </configuration>
+          </plugin>
+          <!-- YUI compressor will add minified files. Prevent war plugin from adding originals. -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+              <warSourceExcludes>**/my-libs/**,**/js/**</warSourceExcludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
