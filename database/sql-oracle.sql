@@ -14,3 +14,24 @@ SELECT * FROM all_cons_columns
 
 select * from user_cons_columns where constraint_name = 'FK9999AAAA8888BBBB';
 
+
+-- Create tablespace and users
+
+create tablespace ts_name
+    logging
+    datafile 'c:/oracle/11g/oradata/orcl/ts_name.dbf' 
+    size 100m 
+    autoextend on 
+    next 32m maxsize 4096m
+    extent management local;
+
+create user myuser identified by pass 
+    default tablespace ts_name
+    quota unlimited on ts_name;
+  
+grant connect,resource to myuser;
+-- or
+grant all privileges to myuser;
+
+-- To drop a tablespace
+drop tablespace ts_name including contents and datafiles cascade constraints;
